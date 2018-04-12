@@ -5,6 +5,8 @@
 
 using namespace std;
 
+//https://github.com/kevinpecro/tp1_conception_objet.git
+
 class MyString
 {
 private:
