@@ -22,8 +22,58 @@ public:
     MyString(const MyString&);
     void affiche();
     void supprimer_un_carac(char,char);
+    char* concatenation(char*,char*);
 };
 
+MyString::MyString()
+{
+    tab=NULL;
+    n=0;
+
+    // Tableau des occurences 'stat' à initialiser
+
+    spe=0;
+}
+
+MyString::MyString(char* chaine)
+{
+    n=strlen(chaine);
+    int i;
+    tab=(char*)malloc((n+1)*sizeof(char));
+    for ( i = 0; chaine[i]!='\0'; ++i)
+    {
+        tab[i]=chaine[i];
+    }
+    tab[i]='\0';
+
+    // Tableau des occurences 'stat' à initialiser
+}
+
+MyString::MyString(char caractere, int x)
+{
+    n=x;
+    int i;
+    tab=(char*)malloc((n+1)*sizeof(char));
+    for ( i = 0; i < x ; ++i)
+    {
+        tab[i]= caractere;
+    }
+    tab[i]='\0';
+
+    // Tableau des occurences 'stat' à initialiser
+}
+
+MyString::~MyString(){}
+
+
+
+char* MyString::concatenation(char* chaine1, char* chaine2)
+{
+    char* chaine3;
+    strcpy(chaine3,chaine1);
+    strcpy(chaine3,chaine2);
+
+}
 
 void MyString::affiche()
 {
