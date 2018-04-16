@@ -80,11 +80,13 @@ MyString::majstat()
 
 
 
-void MyString::concatenation(MyString chaine1)
+void MyString::concatenation(MyString chaine)
 {
-    char* chaine2;
-    strcpy(chaine3,chaine1);
-    strcpy(chaine3,chaine2);
+    char* fusion;
+    //ajout du contenu de l'entité "x" de x.concatenation
+    strcpy(fusion,tab);
+    //ajout du contenu de l'entité chaine présente en paramètre
+    strcpy(fusion,chaine.tab);
 
 }
 
