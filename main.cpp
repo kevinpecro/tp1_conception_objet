@@ -21,7 +21,7 @@ public:
     ~MyString();
     MyString(const MyString&);
     void affiche();
-    void supprimer_un_carac(char,char);
+    void supprimer_un_carac(char*,char);
     char* concatenation(char*,char*);
 };
 
@@ -106,29 +106,14 @@ void MyString::supprimer_un_carac(char *tab, char carac_a_suppr)
 }
 
 
-MyString::MyString()
-{
-    tab=NULL;
-    n=0;
-
-    //stat a initialiser a 0
-
-    spe=0;
-}
-
-MyString::MyString(char* chaine)
-{
-    n=strlen(chaine);
-    tab=(char*)malloc((n+1)*sizeof(char));
-
-}
-
 int main()
 {
     MyString s; s.affiche();
     MyString s1("aac"); s1.affiche();
     MyString s2(s1); s2.affiche();
+    /**/
     MyString s3('z',4);
+    /**/
 
     return 0;
 }
