@@ -11,9 +11,9 @@ class MyString
 {
 private:
     char *tab;
-    int n;
-    int stat[26]; //Décompte du nombre d'utilisation de chaque lettre de l'alphabet
-    int spe;  //Nombre de caractères spéciaux
+    int n, nb, *tab_recopie;
+    int stat[26]; //Dï¿½compte du nombre d'utilisation de chaque lettre de l'alphabet
+    int spe;  //Nombre de caractï¿½res spï¿½ciaux
     void majstat();
 
 public:
@@ -21,11 +21,12 @@ public:
     MyString(char*);
     MyString(char,int);
     ~MyString();
-    MyString(MyString&);
-    //accesseurs
+    MyString(const MyString&);
+
     void affiche();
-    void supprimer_un_carac(char*,char);
     void concatenation(MyString);
+    void supprimer_un_carac(char);
+    void dedouble(char);
 };
 
 MyString::MyString()
@@ -39,10 +40,10 @@ MyString::MyString()
 MyString::MyString(char* chaine)
 {
     n=strlen(chaine);
-    tab=new char[n+1]
+    tab=new char[n+1];
     strcpy(tab,chaine);
     // Tableau des occurences 'stat'
-    majstat();    
+    majstat();
 }
 
 MyString::MyString(char caractere, int x)
@@ -59,9 +60,18 @@ MyString::MyString(char caractere, int x)
 
 MyString::~MyString(){}
 
-MyString::majstat()
+
+MyString::MyString(const MyString& s)
 {
-    int i; char car;
+    tab_recopie=new int[nb=s.nb];
+    for(int i=0; i<nb; i++)tab[i]=s.tab[i];
+
+}
+
+void MyString::majstat()
+{
+    int i;
+    char car;
     spe=0;
     for (int i = 0; i < 26; ++i)
     {
@@ -90,14 +100,19 @@ void MyString::concatenation(MyString chaine1)
 
 void MyString::affiche()
 {
-    for(int i=0; i<n; i++)
+    cout<<"chaine = "<<tab<<endl;
+    cout<<"m = "<<n<<endl;
+    cout<<"stat = "<<endl;
+    for(int i=0; i<26; i++)
     {
-        cout<<" "<<stat[i]<<endl;
+        if(stat[i]!=0)
+        {
+            cout<<"nb car"<<(char)('A'+i)<<"="<<stat[i]<<endl;
+        }
     }
-
 }
 
-void MyString::supprimer_un_carac(char *tab, char carac_a_suppr)
+void MyString::supprimer_un_carac(char carac_a_suppr)
 {
     int j=0, taille;
     char attente[100], *res;
@@ -118,15 +133,46 @@ void MyString::supprimer_un_carac(char *tab, char carac_a_suppr)
     strcpy(res,attente);
 }
 
+void MyString::dedouble(char carac_a_doubler)
+{
+    int j=0, taille;
+    char attente[100], *res;
+
+
+    for (int i=0; tab[i]!='\0'; i++)
+    {
+        if(tab[i]==carac_a_doubler)
+        {
+            attente[j]=tab[i];
+            j++;
+            attente[j]=tab[i];
+        }
+        else
+        {
+            attente[j]=tab[i];
+            j++;
+        }
+    }
+    taille=strlen(attente)+1;
+
+    res=(char*)malloc((taille+1)*sizeof(char));
+
+    strcpy(res,attente);
+
+}
+
 
 int main()
 {
-    MyString s; s.affiche();
-    MyString s1("aac"); s1.affiche();
-    MyString s2(s1); s2.affiche();
-    /**/
-    MyString s3('z',4);
-    /**/
 
-    return 0;
+    MyString s; s.affiche();
+    cout<<"S1:"<<endl;
+    MyString s1("aac"); s1.affiche();
+    cout<<"S2:"<<endl;
+    MyString s2(s1); s2.affiche();
+    cout<<"S3:"<<endl;
+    MyString s3('z',4); s3.affiche();
+
+
+
 }
