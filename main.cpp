@@ -11,9 +11,9 @@ class MyString
 {
 private:
     char *tab;
-    int n, nb, *tab_recopie;
-    int stat[26]; //Dï¿½compte du nombre d'utilisation de chaque lettre de l'alphabet
-    int spe;  //Nombre de caractï¿½res spï¿½ciaux
+    int n, nb;
+    int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
+    int spe;  //Nombre de caracteres speciaux
     void majstat();
 
 public:
@@ -27,6 +27,9 @@ public:
     void concatenation(MyString);
     void supprimer_un_carac(char);
     void dedouble(char);
+    //MyString& operator=(const MyString&);
+    //MyString operator+(const)
+
 };
 
 MyString::MyString()
@@ -34,6 +37,7 @@ MyString::MyString()
     tab=NULL;
     n=0;
     // Tableau des occurences 'stat'
+    spe=0;
     majstat();
 }
 
@@ -55,6 +59,8 @@ MyString::MyString(char caractere, int x)
     {
         tab[i]= caractere;
     }
+    i++;
+    tab[i]='\0';
     majstat();
 }
 
@@ -63,7 +69,7 @@ MyString::~MyString(){}
 
 MyString::MyString(const MyString& s)
 {
-    tab_recopie=new int[nb=s.nb];
+    tab=new char[nb=s.nb];
     for(int i=0; i<nb; i++)tab[i]=s.tab[i];
 
 }
@@ -93,23 +99,30 @@ void MyString::majstat()
 void MyString::concatenation(MyString chaine)
 {
     char* fusion;
-    //ajout du contenu de l'entité "x" de x.concatenation
+    //ajout du contenu de l'entite "x" de x.concatenation
     strcpy(fusion,tab);
-    //ajout du contenu de l'entité chaine présente en paramètre
+    //ajout du contenu de l'entite chaine presente en parametre
     strcpy(fusion,chaine.tab);
 
 }
 
 void MyString::affiche()
 {
-    cout<<"chaine = "<<tab<<endl;
+    if (tab!=NULL)
+    {
+        cout<<"chaine = "<<tab<<endl;
+    }
+    else
+    {
+        cout<<"chaine = "<<endl;
+    }
     cout<<"m = "<<n<<endl;
-    cout<<"stat = "<<endl;
+    cout<<"stat = "<<stat<<endl;
     for(int i=0; i<26; i++)
     {
         if(stat[i]!=0)
         {
-            cout<<"nb car"<<(char)('A'+i)<<"="<<stat[i]<<endl;
+            cout<<"nb car "<<(char)('A'+i)<<"="<<stat[i]<<endl;
         }
     }
 }
@@ -166,7 +179,7 @@ void MyString::dedouble(char carac_a_doubler)
 
 int main()
 {
-
+    cout<<"s:"<<endl;
     MyString s; s.affiche();
     cout<<"S1:"<<endl;
     MyString s1("aac"); s1.affiche();
