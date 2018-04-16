@@ -14,62 +14,75 @@ private:
     int n;
     int stat[26]; //Décompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caractères spéciaux
+    void majstat();
+
 public:
     MyString();
     MyString(char*);
     MyString(char,int);
     ~MyString();
-    MyString(const MyString&);
+    MyString(MyString&);
+    //accesseurs
     void affiche();
     void supprimer_un_carac(char*,char);
-    char* concatenation(char*,char*);
+    void concatenation(MyString);
 };
 
 MyString::MyString()
 {
     tab=NULL;
     n=0;
-
-    // Tableau des occurences 'stat' à initialiser
-
-    spe=0;
+    // Tableau des occurences 'stat'
+    majstat();
 }
 
 MyString::MyString(char* chaine)
 {
     n=strlen(chaine);
-    int i;
-    tab=(char*)malloc((n+1)*sizeof(char));
-    for ( i = 0; chaine[i]!='\0'; ++i)
-    {
-        tab[i]=chaine[i];
-    }
-    tab[i]='\0';
-
-    // Tableau des occurences 'stat' à initialiser
+    tab=new char[n+1]
+    strcpy(tab,chaine);
+    // Tableau des occurences 'stat'
+    majstat();    
 }
 
 MyString::MyString(char caractere, int x)
 {
     n=x;
     int i;
-    tab=(char*)malloc((n+1)*sizeof(char));
+    tab=new char[n+1];
     for ( i = 0; i < x ; ++i)
     {
         tab[i]= caractere;
     }
-    tab[i]='\0';
-
-    // Tableau des occurences 'stat' à initialiser
+    majstat();
 }
 
 MyString::~MyString(){}
 
-
-
-char* MyString::concatenation(char* chaine1, char* chaine2)
+MyString::majstat()
 {
-    char* chaine3;
+    int i; char car;
+    spe=0;
+    for (int i = 0; i < 26; ++i)
+    {
+        stat[i]=0;
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        car=toupper(tab[i]);
+        if ((car>='A')&&(car<='Z'))
+        {
+            stat[car-'A']++;
+        }
+        spe++;
+    }
+}
+
+
+
+void MyString::concatenation(MyString chaine1)
+{
+    char* chaine2;
     strcpy(chaine3,chaine1);
     strcpy(chaine3,chaine2);
 
