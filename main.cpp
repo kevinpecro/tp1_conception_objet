@@ -69,13 +69,15 @@ MyString::~MyString(){}
 
 MyString::MyString(const MyString& s)
 {
-
-    tab=new char[n=s.n];
-    for(int i=0; i<n; i++)
+    int i;
+    n = s.n ;
+    tab=new char[n];
+    for(i=0; i<n; i++)
     {
         tab[i]=s.tab[i];
     }
-    //majstat();
+    tab[i]='\0';
+    majstat();
 }
 
 void MyString::majstat()
