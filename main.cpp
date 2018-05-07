@@ -11,7 +11,7 @@ class MyString
 {
 private:
     char *tab;
-    int n, nb;
+    int n;
     int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caracteres speciaux
     void majstat();
@@ -59,7 +59,7 @@ MyString::MyString(char caractere, int x)
     {
         tab[i]= caractere;
     }
-    i++;
+    //i++;
     tab[i]='\0';
     majstat();
 }
@@ -69,9 +69,13 @@ MyString::~MyString(){}
 
 MyString::MyString(const MyString& s)
 {
-    tab=new char[nb=s.nb];
-    for(int i=0; i<nb; i++)tab[i]=s.tab[i];
 
+    tab=new char[n=s.n];
+    for(int i=0; i<n; i++)
+    {
+        tab[i]=s.tab[i];
+    }
+    //majstat();
 }
 
 void MyString::majstat()
@@ -90,7 +94,8 @@ void MyString::majstat()
         {
             stat[car-'A']++;
         }
-        spe++;
+        else
+            spe++;
     }
 }
 
@@ -99,10 +104,26 @@ void MyString::majstat()
 void MyString::concatenation(MyString chaine)
 {
     char* fusion;
-    //ajout du contenu de l'entite "x" de x.concatenation
-    strcpy(fusion,tab);
+    int taille,i,j;
+    taille = n+chaine.n+1;
+    fusion =new char[taille];
     //ajout du contenu de l'entite chaine presente en parametre
-    strcpy(fusion,chaine.tab);
+    for( i=0; i < n ;i++)
+    {
+        fusion[i]=tab[i];
+    }
+
+
+    //ajout du contenu de l'entite "x" de x.concatenation
+    for(j=0; j < chaine.n ;j++,i++)
+    {
+        fusion [i]=chaine.tab[j];
+    }
+    fusion[i]='\0';
+    delete tab;
+    tab=fusion;
+    n = taille-1;
+    majstat();
 
 }
 
@@ -116,64 +137,72 @@ void MyString::affiche()
     {
         cout<<"chaine = "<<endl;
     }
-    cout<<"m = "<<n<<endl;
-    cout<<"stat = "<<stat<<endl;
+    cout<<"n = "<<n<<endl;
+    cout<<"stat : "<<endl;
     for(int i=0; i<26; i++)
     {
         if(stat[i]!=0)
         {
-            cout<<"nb car "<<(char)('A'+i)<<"="<<stat[i]<<endl;
+            cout<<"nb de car "<<(char)('A'+i)<<"="<<stat[i]<<endl;
         }
     }
+    cout<<"spe = "<<spe<<endl;
 }
 
 void MyString::supprimer_un_carac(char carac_a_suppr)
 {
     int j=0, taille;
-    char attente[100], *res;
-
-    for(int i=0; tab[i]!='\0'; i++)
-    {
-        if(tab[i]!=carac_a_suppr)
-        {
-            attente[j]=tab[i];
-            j++;
-        }
-
-    }
-    taille=strlen(attente)+1;
+    char *res;
+    taille=n;
 
     res=(char*)malloc((taille+1)*sizeof(char));
 
-    strcpy(res,attente);
+    for(int i=0; i < n ; i++)
+    {
+        if(tab[i]!=carac_a_suppr)
+        {
+            res[j]=tab[i];
+            j++;
+        }
+        else
+            n--;
+
+    }
+    res[j]='\0';
+    delete tab;
+    tab=res;
+    n = taille;
+    majstat();
 }
 
 void MyString::dedouble(char carac_a_doubler)
 {
     int j=0, taille;
-    char attente[100], *res;
-
-
-    for (int i=0; tab[i]!='\0'; i++)
-    {
-        if(tab[i]==carac_a_doubler)
-        {
-            attente[j]=tab[i];
-            j++;
-            attente[j]=tab[i];
-        }
-        else
-        {
-            attente[j]=tab[i];
-            j++;
-        }
-    }
-    taille=strlen(attente)+1;
+    char  *res;
+    taille=strlen(tab)+1;
 
     res=(char*)malloc((taille+1)*sizeof(char));
 
-    strcpy(res,attente);
-
+    for (int i=0; i < n ; i++)
+    {
+        if(tab[i]==carac_a_doubler)
+        {
+            res[j]=tab[i];
+            j++;
+            res[j]=tab[i];
+            j++;
+        }
+        else
+        {
+            res[j]=tab[i];
+            j++;
+        }
+    }
+    res[j]='\0';
+    delete tab;
+    tab=res;
+    n = taille;
+    majstat();
 }
 
 
@@ -188,6 +217,13 @@ int main()
     cout<<"S3:"<<endl;
     MyString s3('z',4); s3.affiche();
 
+    s3.concatenation(s1);
+    s3.affiche();
+    s1.dedouble('c');
+    cout<< "S1 : " << endl;
+    s1.affiche();
+    s1.supprimer_un_carac('c');
+    s1.affiche();
 
 
 }
