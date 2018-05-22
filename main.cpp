@@ -97,7 +97,12 @@ void MyString::majstat()
             stat[car-'A']++;
         }
         else
-            spe++;
+        {
+            if (car!='\0')
+            {
+                spe++;
+            }
+        }
     }
 }
 
@@ -153,27 +158,28 @@ void MyString::affiche()
 
 void MyString::supprimer_un_carac(char carac_a_suppr)
 {
-    int j=0, taille;
+    int j=0, taille, test=0;
     char *res;
-    taille=n;
+    taille=strlen(tab)+1;
 
     res=(char*)malloc((taille+1)*sizeof(char));
 
     for(int i=0; i < n ; i++)
     {
-        if(tab[i]!=carac_a_suppr)
+        if((tab[i]!=carac_a_suppr) && (tab[i]!='\0'))
         {
             res[j]=tab[i];
             j++;
         }
-        else
-            n--;
-
     }
     res[j]='\0';
     delete tab;
     tab=res;
-    n = taille;
+    n=0;
+    for (int i = 0; tab[i]!='\0'; ++i)
+    {
+       n++;
+    }
     majstat();
 }
 
@@ -203,7 +209,11 @@ void MyString::dedouble(char carac_a_doubler)
     res[j]='\0';
     delete tab;
     tab=res;
-    n = taille;
+    n=0;
+    for (int i = 0; tab[i]!='\0'; ++i)
+    {
+       n++;
+    }
     majstat();
 }
 
@@ -226,6 +236,10 @@ int main()
     s1.affiche();
     s1.supprimer_un_carac('c');
     s1.affiche();
-
-
+    MyString s4("j'aime le jambon");
+    s4.supprimer_un_carac('a');s4.supprimer_un_carac('i');
+    cout << "S4 : " <<endl;
+    s4.affiche();
+    s4.dedouble('e');
+    s4.affiche();
 }
