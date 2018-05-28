@@ -96,12 +96,14 @@ MyString& MyString::operator=(const MyString &b)
 
 }
 
-/*MyString MyString::operator+(MyString b)
+MyString MyString::operator+(MyString b)
 {
     MyString res;
+    res.n = n+ b.n;
     res.tab = tab + b.tab;
+    majstat();
     return res;
-}*/
+}
 
 
 void MyString::majstat()
