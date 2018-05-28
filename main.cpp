@@ -275,7 +275,7 @@ int main()
     s1.affiche();
     s1.supprimer_un_carac('c');
     s1.affiche();
-    MyString s4("j'aime le jambon");
+    MyString s4("abcdefghijklmnopqrtusvwxyz");
     s4.supprimer_un_carac('a');s4.supprimer_un_carac('i');
     cout << "S4 : " <<endl;
     s4.affiche();
@@ -287,7 +287,7 @@ int main()
 }
 
 /*
-supprime(char c)
+supprime(char c)Visible
 {
     int i,j,cpt;
     char *tmp;
@@ -297,8 +297,8 @@ supprime(char c)
     for(i=0,j=0; i<=n;i++)
         if(tab[i]!=c)tmp[j++]=tab[i];
     n=n-cpt;
-    delete tab; tab=tmp;
-    majstat(); // ou stat[toupper(c)-'A']=0;
-}
+    delete tab; tab=tmp;Visible
+    majstat(); // ou stat[toupper(c)-'A']=0;Visible
+}Visible
 
 */
