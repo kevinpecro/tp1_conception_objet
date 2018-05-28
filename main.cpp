@@ -82,24 +82,26 @@ MyString::MyString(const MyString& s)
 
 MyString& MyString::operator=(const MyString &b)
 {
-
+    int i;
     if(this !=&b)
     {
         delete tab;
         tab = new char[n = b.n];
-        for(char i=0; i<n; i++)
+        for( i=0; i<n; i++)
             tab[i] = b.tab[i];
     }
+    tab[i]='\0';
+    majstat();
     return *this;
 
 }
 
-MyString MyString::operator+(MyString b)
+/*MyString MyString::operator+(MyString b)
 {
     MyString res;
     res.tab = tab + b.tab;
     return res;
-}
+}*/
 
 
 void MyString::majstat()
