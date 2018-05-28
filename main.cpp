@@ -30,9 +30,6 @@ public:
     void supprimer_un_carac(char);
     void dedouble(char);
     void maj(char);
-    //MyString& operator=(const MyString&);
-    //MyString operator+(const)
-
 };
 
 MyString::MyString()
@@ -85,11 +82,12 @@ MyString::MyString(const MyString& s)
 
 MyString& MyString::operator=(const MyString &b)
 {
+
     if(this !=&b)
     {
         delete tab;
-        tab = new char[nb = b.nb];
-        for(char i=0; i<nb; i++)
+        tab = new char[n = b.n];
+        for(char i=0; i<n; i++)
             tab[i] = b.tab[i];
     }
     return *this;
@@ -99,8 +97,8 @@ MyString& MyString::operator=(const MyString &b)
 MyString MyString::operator+(MyString b)
 {
     MyString res;
-    res.s3 = b.s2 + b.s1;
-
+    res.tab = tab + b.tab;
+    return res;
 }
 
 
@@ -279,6 +277,9 @@ int main()
     s4.affiche();
     s4.dedouble('e');
     s4.affiche();
+    s4 = s2;
+    s4.affiche();
+
 }
 
 /*
