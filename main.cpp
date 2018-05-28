@@ -22,11 +22,14 @@ public:
     MyString(char,int);
     ~MyString();
     MyString(const MyString&);
+    MyString& operator=(const MyString &);
+    MyString operator+(MyString);
 
     void affiche();
     void concatenation(MyString);
     void supprimer_un_carac(char);
     void dedouble(char);
+    void maj(char);
     //MyString& operator=(const MyString&);
     //MyString operator+(const)
 
@@ -73,6 +76,27 @@ MyString::MyString(const MyString& s)
     for(int i=0; i<nb; i++)tab[i]=s.tab[i];
 
 }
+
+MyString& MyString::operator=(const MyString &b)
+{
+    if(this !=&b)
+    {
+        delete tab;
+        tab = new char[nb = b.nb];
+        for(char i=0; i<nb; i++)
+            tab[i] = b.tab[i];
+    }
+    return *this;
+
+}
+
+MyString MyString::operator+(MyString b)
+{
+    MyString res;
+    res.s3 = b.s2 + b.s1;
+
+}
+
 
 void MyString::majstat()
 {
@@ -176,6 +200,19 @@ void MyString::dedouble(char carac_a_doubler)
 
 }
 
+void MyString::maj(char carac_a_maj)
+{
+    int i=0;
+    char c;
+    while (tab[i])
+    {
+        c=tab[i];
+        putchar (toupper(c));
+        i++;
+    }
+
+}
+
 
 int main()
 {
@@ -191,3 +228,20 @@ int main()
 
 
 }
+
+/*
+supprime(char c)
+{
+    int i,j,cpt;
+    char *tmp;
+
+    for (i=0, cpt=0; i<n; i++)
+        if(tab[i]==c)cpt++;
+    for(i=0,j=0; i<=n;i++)
+        if(tab[i]!=c)tmp[j++]=tab[i];
+    n=n-cpt;
+    delete tab; tab=tmp;
+    majstat(); // ou stat[toupper(c)-'A']=0;
+}
+
+*/
