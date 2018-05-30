@@ -10,7 +10,7 @@ using namespace std;
 class MyString
 {
 private:
-    char *tab;
+    char *tab,*d;
     int n,x,y;
     int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caracteres speciaux
@@ -22,10 +22,10 @@ public:
     MyString(char,int);
     ~MyString();
     MyString(const MyString&);
-    MyString& operator=(const MyString &);
+    MyString &operator=(const MyString &);
     MyString operator+(MyString);
 
-    //Mystring& operator[](int);
+    char &operator[](char);
 
     void affiche();
     void concatenation(MyString);
@@ -38,7 +38,6 @@ MyString::MyString()
 {
     tab=NULL;
     n=0;
-    // Tableau des occurences 'stat'
     spe=0;
     majstat();
 }
@@ -48,7 +47,6 @@ MyString::MyString(char* chaine)
     n=strlen(chaine);
     tab=new char[n+1];
     strcpy(tab,chaine);
-    // Tableau des occurences 'stat'
     majstat();
 }
 
@@ -61,7 +59,6 @@ MyString::MyString(char caractere, int x)
     {
         tab[i]= caractere;
     }
-    //i++;
     tab[i]='\0';
     majstat();
 }
@@ -107,13 +104,13 @@ MyString MyString::operator+(MyString b)
     return res;
 }
 
-// int & Mystring::operator [] (int i)
-// {
-//      if((i>=0) && (i<nelem))
-//         return(adr[i]);
-//     cout<<"erreur"<<endl;
-//     return adr[0];
-// }
+char & MyString::operator [] (char i)
+{
+     if((i>=0) && (i<n))
+        return(tab[i]);
+    cout<<"erreur"<<endl;
+    return tab[0];
+}
 
 void MyString::majstat()
 {
@@ -149,14 +146,11 @@ void MyString::concatenation(MyString chaine)
     int taille,i,j;
     taille = n+chaine.n+1;
     fusion =new char[taille];
-    //ajout du contenu de l'entite chaine presente en parametre
     for( i=0; i < n ;i++)
     {
         fusion[i]=tab[i];
     }
 
-
-    //ajout du contenu de l'entite "x" de x.concatenation
     for(j=0; j < chaine.n ;j++,i++)
     {
         fusion [i]=chaine.tab[j];
@@ -296,8 +290,9 @@ int main()
     MyString a(1,2),b(3,4),c(0,0);
     c = a+b;
     c.affiche();
-    // Mystring n(6);
-    // cout<<n[6]<<endl;
-    // n[5]=123;
+    cout<<"Operateur de Flux"<<endl;
+    MyString d("bonjour");
+    cout<<d[6]<<endl;
+    d[5]=123;
 
 }
