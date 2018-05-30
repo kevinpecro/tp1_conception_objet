@@ -11,7 +11,7 @@ class MyString
 {
 private:
     char *tab;
-    int n;
+    int n,x,y;
     int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caracteres speciaux
     void majstat();
@@ -24,6 +24,8 @@ public:
     MyString(const MyString&);
     MyString& operator=(const MyString &);
     MyString operator+(MyString);
+
+    //Mystring& operator[](int);
 
     void affiche();
     void concatenation(MyString);
@@ -99,12 +101,19 @@ MyString& MyString::operator=(const MyString &b)
 MyString MyString::operator+(MyString b)
 {
     MyString res;
-    res.n = n+ b.n;
-    res.tab = tab + b.tab;
+    res.x=x+b.x;
+    res.y=y+b.y;
     majstat();
     return res;
 }
 
+// int & Mystring::operator [] (int i)
+// {
+//      if((i>=0) && (i<nelem))
+//         return(adr[i]);
+//     cout<<"erreur"<<endl;
+//     return adr[0];
+// }
 
 void MyString::majstat()
 {
@@ -283,22 +292,12 @@ int main()
     s4.affiche();
     s4 = s2;
     s4.affiche();
+    cout << "Operateur +" <<endl;
+    MyString a(1,2),b(3,4),c(0,0);
+    c = a+b;
+    c.affiche();
+    // Mystring n(6);
+    // cout<<n[6]<<endl;
+    // n[5]=123;
 
 }
-
-/*
-supprime(char c)Visible
-{
-    int i,j,cpt;
-    char *tmp;
-
-    for (i=0, cpt=0; i<n; i++)
-        if(tab[i]==c)cpt++;
-    for(i=0,j=0; i<=n;i++)
-        if(tab[i]!=c)tmp[j++]=tab[i];
-    n=n-cpt;
-    delete tab; tab=tmp;Visible
-    majstat(); // ou stat[toupper(c)-'A']=0;Visible
-}Visible
-
-*/
