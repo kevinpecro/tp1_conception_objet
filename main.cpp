@@ -14,7 +14,7 @@ private:
     int n; // Taille de la chaine
     int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caracteres speciaux
-    
+
 
 public:
     MyString();
@@ -31,7 +31,7 @@ public:
     void supprimer_un_carac(char);
     void dedouble(char);
     void maj(char);
-    char GetTab();
+    char* GetTab();
 
 };
 
@@ -80,7 +80,7 @@ MyString::MyString(const MyString& s)
     majstat();
 }
 
-char MyString::GetTab()
+char* MyString::GetTab()
 {
     return tab;
 }
@@ -280,7 +280,7 @@ int main()
     s1.affiche();
     s1.supprimer_un_carac('c');//Suppression des caractères c dans s1
     s1.affiche();
-    
+
     MyString s4("abcdefghijklmnopqrtusvwxyz");
     s4.supprimer_un_carac('a');s4.supprimer_un_carac('i');
     cout << "S4 : " << endl;
@@ -292,6 +292,7 @@ int main()
     s4 = s2; // Vérication de la surcharge d'opérateur =
     s4.affiche();
 
+    s3.GetTab();s3.affiche();
     cout << "Operateur +" <<endl;
     cout << s4 << endl;// Vérication de la surcharge d'opérateur <<
     MyString s5;
