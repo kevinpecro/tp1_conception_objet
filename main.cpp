@@ -10,11 +10,11 @@ using namespace std;
 class MyString
 {
 private:
-    char *tab,*d;
-    int n,x,y;
+    char *tab;
+    int n; // Taille de la chaine
     int stat[26]; //Decompte du nombre d'utilisation de chaque lettre de l'alphabet
     int spe;  //Nombre de caracteres speciaux
-    void majstat();
+    
 
 public:
     MyString();
@@ -26,10 +26,13 @@ public:
     MyString operator+=(MyString &);
     friend ostream& operator<<(ostream& os, const MyString& st);
     void affiche();
+    void majstat();
     void concatenation(MyString);
     void supprimer_un_carac(char);
     void dedouble(char);
     void maj(char);
+    char GetTab();
+
 };
 
 MyString::MyString()
@@ -75,6 +78,11 @@ MyString::MyString(const MyString& s)
     }
     tab[i]='\0';
     majstat();
+}
+
+char MyString::GetTab()
+{
+    return tab;
 }
 
 MyString& MyString::operator=(const MyString &b)
