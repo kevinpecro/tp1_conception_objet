@@ -23,10 +23,8 @@ public:
     ~MyString();
     MyString(const MyString&);
     MyString &operator=(const MyString &);
-    MyString operator+(MyString);
-
-    char &operator[](char);
-
+    MyString operator+=(MyString &);
+    friend ostream& operator<<(ostream& os, const MyString& st);
     void affiche();
     void concatenation(MyString);
     void supprimer_un_carac(char);
@@ -94,22 +92,17 @@ MyString& MyString::operator=(const MyString &b)
     return *this;
 
 }
-
-MyString MyString::operator+(MyString b)
+ostream& operator<<(ostream& os, const MyString& st)
 {
-    MyString res;
-    res.x=x+b.x;
-    res.y=y+b.y;
-    majstat();
-    return res;
+    os<< st.tab;
+    return os;
 }
 
-char & MyString::operator [] (char i)
+MyString operator+(MyString st1, MyString st2)
 {
-     if((i>=0) && (i<n))
-        return(tab[i]);
-    cout<<"erreur"<<endl;
-    return tab[0];
+    MyString res = st1;
+    res.concatenation(st2);
+    return res ;
 }
 
 void MyString::majstat()
@@ -280,19 +273,17 @@ int main()
     s1.affiche();
     MyString s4("abcdefghijklmnopqrtusvwxyz");
     s4.supprimer_un_carac('a');s4.supprimer_un_carac('i');
-    cout << "S4 : " <<endl;
+    cout << "S4 : " << endl;
     s4.affiche();
     s4.dedouble('e');
     s4.affiche();
     s4 = s2;
     s4.affiche();
+
     cout << "Operateur +" <<endl;
-    MyString a(1,2),b(3,4),c(0,0);
-    c = a+b;
-    c.affiche();
-    cout<<"Operateur de Flux"<<endl;
-    MyString d("bonjour");
-    cout<<d[6]<<endl;
-    d[5]=123;
+    cout << s4 << endl;
+    MyString s5;
+    s5 = s2+s2;
+    cout << s5 <<endl;
 
 }
