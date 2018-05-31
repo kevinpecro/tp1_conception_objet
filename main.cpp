@@ -256,34 +256,38 @@ void MyString::maj(char carac_a_maj)
 int main()
 {
     cout<<"s:"<<endl;
-    MyString s; s.affiche();
+    MyString s; s.affiche();//Initialisation d'un objet MyString vierge
     cout<<"S1:"<<endl;
-    MyString s1("aac"); s1.affiche();
+    MyString s1("aac"); s1.affiche();//Initialisation d'un objet MyString avec défition de la chaine
     cout<<"S2:"<<endl;
-    MyString s2(s1); s2.affiche();
+    MyString s2(s1); s2.affiche();//Initialisation d'un objet MyString via constructeur de recopie
     cout<<"S3:"<<endl;
     MyString s3('z',4); s3.affiche();
+    //Initialisation d'un objet MyString comprenant 4 fois le caractère z
 
-    s3.concatenation(s1);
+    s3.concatenation(s1); //ajout de la chaine s1 dans s3
     s3.affiche();
-    s1.dedouble('c');
+    s1.dedouble('c'); // Doublage du caractère c dans s1
     cout<< "S1 : " << endl;
     s1.affiche();
-    s1.supprimer_un_carac('c');
+    s1.supprimer_un_carac('c');//Suppression des caractères c dans s1
     s1.affiche();
+    
     MyString s4("abcdefghijklmnopqrtusvwxyz");
     s4.supprimer_un_carac('a');s4.supprimer_un_carac('i');
     cout << "S4 : " << endl;
     s4.affiche();
     s4.dedouble('e');
     s4.affiche();
-    s4 = s2;
+    //vérifications de l'application de plusieurs méthodes a la suite les unes des autres
+
+    s4 = s2; // Vérication de la surcharge d'opérateur =
     s4.affiche();
 
     cout << "Operateur +" <<endl;
-    cout << s4 << endl;
+    cout << s4 << endl;// Vérication de la surcharge d'opérateur <<
     MyString s5;
-    s5 = s2+s2;
+    s5 = s2+s2; // Vérication de la surcharge d'opérateur +
     cout << s5 <<endl;
 
 }
